@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO List</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #487fff;
+            color: #e5e7eb;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #heading {
+            background: #020617;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        #title {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        #changetitle {
+            height: 36px;
+            width: 36px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: #6366f1;
+            color: white;
+            padding: 0px;
+        }
+
+        #todo {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        #list {
+            background: #020617;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 0;
+            list-style: none;
+            overflow-y: auto;
+        }
+
+        #list li {
+            font-size: 1.1rem;
+            padding: 12px 10px;
+            margin-bottom: 10px;
+            background: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+        }
+
+        #add,
+        #rem {
+            background: #020617;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        input,
+        select {
+            flex: 1;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #b2b3b5;
+            background: #020617;
+            color: #e5e7eb;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        #additem {
+            background: #22c55e;
+            color: black;
+        }
+
+        #delitem {
+            background: #ef4444;
+            color: white;
+        }
+
+        #additem:hover {
+            background: #16a34a;
+        }
+
+        #delitem:hover {
+            background: #dc2626;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let inputs = 0;
+            document.getElementById("changetitle").onclick = () => {
+                if (inputs <= 0) {
+                    console.log(inputs);
+                    const uin = document.createElement("input");
+                    inputs++;
+                    document.getElementById("heading").appendChild(uin);
+
+                    const title = document.getElementById("title");
+                    uin.addEventListener("change", () => {
+                        document.getElementById("title").textContent =
+                            uin.value;
+                        uin.remove();
+                        inputs--;
+                    });
+                }
+            };
+
+            let listcontent = [];
+            let list = document.getElementById("list").children;
+            for (let i = 0; i < list.length; i++) {
+                listcontent.push(list[i].innerHTML);
+            }
+            const sel = document.getElementById("del").children;
+            for (let item of list) {
+                let option = document.createElement("option");
+                option.innerHTML = item.innerHTML;
+                del.appendChild(option);
+            }
+
+            document.getElementById("additem").onclick = () => {
+                const item = document.createElement("li");
+                const itemin = document.getElementById("addin");
+
+                for (let ele of listcontent) {
+                    if (itemin.value === ele) {
+                        return;
+                    }
+                }
+                item.innerHTML = itemin.value;
+                listcontent.push(item.innerHTML);
+                document.getElementById("list").appendChild(item);
+                let option = document.createElement("option");
+                option.innerHTML = item.innerHTML;
+                del.appendChild(option);
+            };
+
+            document.getElementById("delitem").onclick = () => {
+                const menu = document.getElementById("del");
+                if (menu.value != "def") {
+                    for (let ele of list) {
+                        if (menu.value == ele.innerHTML) {
+                            ele.remove();
+                        }
+                    }
+                    for (let ele of menu.children) {
+                        if (ele.innerHTML == menu.value) {
+                            ele.remove();
+                        }
+                    }
+                }
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="heading">
+        <h1 id="title">Title</h1>
+        <button id="changetitle">✏️</button>
+    </div>
+
+    <div id="todo">
+        <ul id="list">
+            <li>Apple</li>
+            <li>Banana</li>
+            <li>Chikoo</li>
+        </ul>
+
+        <div id="add">
+            <input id="addin" type="text" placeholder="Add item" />
+            <button id="additem">➕</button>
+        </div>
+        <div id="rem">
+            <select id="del">
+                <option value="def">--select--</option>
+            </select>
+            <button id="delitem">❌</button>
+        </div>
+    </div>
+</body>
+
+</html>
