@@ -175,9 +175,10 @@
             document.getElementById("delitem").onclick = () => {
                 const menu = document.getElementById("del");
                 if (menu.value != "def") {
-                    for (let ele of list) {
-                        if (menu.value == ele.innerHTML) {
-                            ele.remove();
+                    for (let i = 0; i < list.length; i++) {
+                        if (menu.value == list[i].innerHTML) {
+                            list[i].remove();
+                            listcontent.splice(i,1);
                         }
                     }
                     for (let ele of menu.children) {
